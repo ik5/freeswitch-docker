@@ -20,4 +20,6 @@ if [ "$1" = 'freeswitch' ]; then
     exec gosu freeswitch /usr/bin/freeswitch -u freeswitch -g freeswitch -nonat -c
 fi
 
+ip=$(ip addr)
+echo "Current IP: $ip"
 exec "$@"
