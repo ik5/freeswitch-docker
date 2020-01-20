@@ -80,15 +80,24 @@ COPY docker-entrypoint.sh /
 RUN chmod +x /docker-entrypoint.sh
 
 RUN mkdir -p /etc/freeswitch
-RUN echo 'copying vanilla config'
 RUN cp -varf /usr/share/freeswitch/conf/vanilla/* /etc/freeswitch/
-RUN rm /etc/freeswitch/autoload_configs/modules.conf.xml
-COPY modules.conf.xml /etc/freeswitch/autoload_configs/
+RUN rm /etc/freeswitch/autoload_configs/modules.conf.xml \
+      /etc/freeswitch/autoload_configs/switch.conf.xml \
+      /etc/freeswitch/directory/default/*xml \
+      /etc/freeswitch/vars.xml \
+      /etc/freeswitch/sip_profiles/external.xml \
+      /etc/freeswitch/sip_profiles/external-ipv6.xml \
+      /etc/freeswitch/sip_profiles/internal.xml \
+      /etc/freeswitch/sip_profiles/internal-ipv6.xml
+COPY conf/modules.conf.xml conf/switch.conf.xml /etc/freeswitch/autoload_configs/
+COPY conf/vars.xml /etc/freeswitch/
+COPY conf/external.xml conf/external-ipv6.xml /etc/freeswitch/sip_profiles/
+COPY conf/internal.xml conf/internal-ipv6.xml /etc/freeswitch/sip_profiles/
 
 
 ## Ports
 # Open the container up to the world.
-### 8021 fs_cli, 5060 5061 5080 5081 sip and sips, 64535-65535 rtp
+### 8021 fs_cli, 5060 5061 5080 5081 sip and sips, 5000-32000 rtp
 EXPOSE 8021/tcp
 EXPOSE 5060/tcp 5060/udp 5080/tcp 5080/udp
 EXPOSE 5061/tcp 5061/udp 5081/tcp 5081/udp
@@ -96,8 +105,7 @@ EXPOSE 5066/tcp
 EXPOSE 5001/udp
 EXPOSE 7443/tcp
 EXPOSE 5070/udp 5070/tcp
-EXPOSE 64535-65535/udp
-EXPOSE 16384-32768/udp
+EXPOSE 5000-32000/udp
 EXPOSE 1935/udp 1935/tcp
 # WebRTC (verto) Ports:
 EXPOSE 8081/tcp 8082/tcp
