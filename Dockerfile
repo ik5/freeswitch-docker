@@ -47,6 +47,7 @@ RUN apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y gosu cer
       && DEBIAN_FRONTEND=noninteractive \
       apt-get install -y \
       freeswitch-meta-bare freeswitch-conf-vanilla \
+      freeswitch-meta-codecs \
       freeswitch-mod-python freeswitch-mod-v8 \
       freeswitch-mod-verto freeswitch-mod-esf freeswitch-mod-lua \
       freeswitch-mod-rtc freeswitch-mod-verto freeswitch-mod-esf \
@@ -73,8 +74,8 @@ RUN if [ "${use_postgre}" = "true" ] ; then \
       freeswitch-mod-cdr-pg-csv freeswitch-mod-pgsql \
       ; fi
 
-RUN apt-get remove freeswitch-mod-kazoo freeswitch-mod-signalwire
-RUN apt-get update && apt-get autoclean && apt-get clean && rm -rf /var/lib/apt/lists/*
+RUN apt-get remove -y freeswitch-mod-kazoo freeswitch-mod-signalwire
+RUN apt-get update && apt-get autoclean -y && apt-get clean -y && rm -rf /var/lib/apt/lists/*
 
 COPY docker-entrypoint.sh /
 RUN chmod +x /docker-entrypoint.sh
@@ -83,13 +84,15 @@ RUN mkdir -p /etc/freeswitch
 RUN cp -varf /usr/share/freeswitch/conf/vanilla/* /etc/freeswitch/
 RUN rm /etc/freeswitch/autoload_configs/modules.conf.xml \
       /etc/freeswitch/autoload_configs/switch.conf.xml \
+      /etc/freeswitch/autoload_configs/verto.conf.xml \
       /etc/freeswitch/directory/default/*xml \
       /etc/freeswitch/vars.xml \
       /etc/freeswitch/sip_profiles/external.xml \
       /etc/freeswitch/sip_profiles/external-ipv6.xml \
       /etc/freeswitch/sip_profiles/internal.xml \
       /etc/freeswitch/sip_profiles/internal-ipv6.xml
-COPY conf/modules.conf.xml conf/switch.conf.xml /etc/freeswitch/autoload_configs/
+COPY conf/modules.conf.xml conf/switch.conf.xml conf/verto.conf.xml \
+  /etc/freeswitch/autoload_configs/
 COPY conf/vars.xml /etc/freeswitch/
 COPY conf/external.xml conf/external-ipv6.xml /etc/freeswitch/sip_profiles/
 COPY conf/internal.xml conf/internal-ipv6.xml /etc/freeswitch/sip_profiles/
@@ -110,6 +113,7 @@ EXPOSE 1935/udp 1935/tcp
 # WebRTC (verto) Ports:
 EXPOSE 8081/tcp 8082/tcp
 EXPOSE 7443/tcp
+EXPOSE 1337/tcp 1337/udp
 EXPOSE 443/tcp
 
 # Volumes
