@@ -14,7 +14,7 @@ RUN groupadd -r share && useradd -m -g share share
 RUN apt-get update && DEBIAN_FRONTEND=noninteractive apt-get upgrade && \
       DEBIAN_FRONTEND=noninteractive apt-get install -y ca-certificates tzdata
 RUN echo "deb https://deb.debian.org/debian buster-backports main contrib non-free" > /etc/apt/sources.list.d/backports.list
-RUN apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y apt-utils \
+RUN apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y dialog apt-utils \
       && DEBIAN_FRONTEND=noninteractive apt-get install -y wget lsb-release locales gnupg2
 RUN localedef -i en_US -c -f UTF-8 -A /usr/share/locale/locale.alias en_US.UTF-8
 ENV LANG en_US.utf8
@@ -97,6 +97,8 @@ COPY conf/vars.xml /etc/freeswitch/
 COPY conf/external.xml conf/external-ipv6.xml /etc/freeswitch/sip_profiles/
 COPY conf/internal.xml conf/internal-ipv6.xml /etc/freeswitch/sip_profiles/
 
+RUN rm -f /root/.bashrc
+COPY bashrc /root/.bashrc
 
 ## Ports
 # Open the container up to the world.
