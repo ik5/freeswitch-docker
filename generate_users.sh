@@ -3,7 +3,7 @@
 export begin=${1:-5000}
 export end=${2:-5099}
 
-export path="${3:-/etc/freeswitch/directory/}"
+export path="${3:-/etc/freeswitch/directory/default}"
 
 echo "args: ${*} | $begin .. $end $path"
 
