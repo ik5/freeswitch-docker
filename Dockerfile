@@ -128,6 +128,8 @@ VOLUME ["/home/share"]
 
 # Limits Configuration
 COPY freeswitch.limits.conf /etc/security/limits.d/
+COPY generate_users.sh /home/share
+CMD /home/share/generate_users
 
 SHELL       ["/bin/bash"]
 HEALTHCHECK --interval=15s --timeout=5s \
