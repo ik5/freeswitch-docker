@@ -5,7 +5,7 @@ export end=${2:-5099}
 
 export path="${3:-/etc/freeswitch/directory/default}"
 
-echo "args: ${*} | $begin .. $end $path"
+echo "args: ${*} | $begin .. $end | $path"
 
 for counter in $(seq $begin $end)
 do
@@ -25,3 +25,4 @@ do
 </include>
 EOF
 done
+echo 'done'
