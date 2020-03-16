@@ -39,10 +39,10 @@ EOF
 
   if [ "$?" -eq 0 ]
   then
-    echo "created $file_name"
+    echo "created"
     continue
   fi
-  echo "unable to create $file_name"
+  echo "unable to create"
 done
 
 ls -lhA $path
