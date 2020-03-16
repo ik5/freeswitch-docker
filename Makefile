@@ -24,7 +24,7 @@ clean-image:
 	@echo "deleting image $(TAG)"
 	@docker image rm "$(TAG)" 2>/dev/null && echo "✓" || echo "✘"
 	@echo "deleting bad images"
-	@docker image rm $(shell docker images | grep none | tr -s ' ' | cut -d ' ' -f 3) && echo "✓" || echo "✘"
+	@docker image rm $(shell docker image ls -a | grep none | tr -s ' ' | cut -d ' ' -f 3) && echo "✓" || echo "✘"
 
 clean-all: clean-container clean-image
 	@echo "done"
