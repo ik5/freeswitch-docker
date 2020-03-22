@@ -48,6 +48,7 @@
 
   -->
 
+  <X-PRE-PROCESS cmd="set" data="script_dir=/home/share/scripts" />
 
   <X-PRE-PROCESS cmd="set" data="sound_prefix=$${sounds_dir}/en/us/callie"/>
   <!--<Z-PRE-PROCESS cmd="set" data="sound_prefix=$${sounds_dir}/en/us/allison"/> -->

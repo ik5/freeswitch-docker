@@ -10,6 +10,8 @@ RUN rm -f /etc/timezone && \
 
 RUN groupadd -r freeswitch --gid=999 && useradd -r -g freeswitch --uid=999 freeswitch
 RUN groupadd -r share && useradd -m -g share share
+RUN mkdir -p /home/share/scripts
+RUN chmod go+rx /home/share /home/share/scripts
 
 RUN apt-get update && DEBIAN_FRONTEND=noninteractive apt-get upgrade && \
       DEBIAN_FRONTEND=noninteractive apt-get install -y ca-certificates tzdata
@@ -96,6 +98,9 @@ COPY conf/modules.conf.xml conf/switch.conf.xml conf/verto.conf.xml \
 COPY conf/vars.xml /etc/freeswitch/
 COPY conf/external.xml conf/external-ipv6.xml /etc/freeswitch/sip_profiles/
 COPY conf/internal.xml conf/internal-ipv6.xml /etc/freeswitch/sip_profiles/
+
+ONBUILD COPY webrtc/dialplan/*xml /etc/freeswitch/dialplan/
+ONBUILD COPY webrtc/scripts/* /home/share/scripts
 
 RUN rm -f /root/.bashrc
 COPY bashrc /root/.bashrc
