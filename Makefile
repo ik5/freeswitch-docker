@@ -30,10 +30,10 @@ clean-all: clean-container clean-image
 	@echo "done"
 
 run-background:
-	docker run -d -t --net=host --name $(NAME) $(TAG)
+	docker run -d -t --name $(NAME) $(TAG)
 
 run:
-	docker run -t --net=host --name $(NAME) $(TAG)
+	docker run -t --name $(NAME) $(TAG)
 
 bash:
 	docker exec -i -t $(NAME) /bin/bash
