@@ -17,7 +17,8 @@ RUN apt-get update && DEBIAN_FRONTEND=noninteractive apt-get upgrade && \
       DEBIAN_FRONTEND=noninteractive apt-get install -y ca-certificates tzdata
 RUN echo "deb https://deb.debian.org/debian buster-backports main contrib non-free" > /etc/apt/sources.list.d/backports.list
 RUN apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y dialog apt-utils \
-      && DEBIAN_FRONTEND=noninteractive apt-get install -y wget lsb-release locales gnupg2
+      && DEBIAN_FRONTEND=noninteractive apt-get install -y wget lsb-release locales gnupg2 \
+      && DEBIAN_FRONTEND=noninteractive apt-get install -y rsyslog
 RUN localedef -i en_US -c -f UTF-8 -A /usr/share/locale/locale.alias en_US.UTF-8
 ENV LANG en_US.utf8
 
@@ -68,7 +69,7 @@ RUN apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y gosu cer
       freeswitch-mod-shout freeswitch-mod-sndfile freeswitch-mod-spy \
       freeswitch-mod-syslog freeswitch-mod-xml-cdr freeswitch-mod-tone-stream \
       freeswitch-sounds-en-us-callie freeswitch-mod-unimrcp freeswitch-mod-enum \
-      freeswitch-mod-translate
+      freeswitch-mod-translate freeswitch-mod-logfile
 
 RUN if [ "${use_mariadb}" = "true" ] ; then apt-get install -y freeswitch-mod-mariadb ; fi
 RUN if [ "${use_postgre}" = "true" ] ; then \
@@ -89,6 +90,7 @@ RUN rm /etc/freeswitch/autoload_configs/modules.conf.xml \
       /etc/freeswitch/autoload_configs/verto.conf.xml \
       /etc/freeswitch/autoload_configs/event_socket.conf.xml \
       /etc/freeswitch/autoload_configs/acl.conf.xml \
+      /etc/freeswitch/autoload_configs/syslog.conf.xml \
       /etc/freeswitch/directory/default/*xml \
       /etc/freeswitch/vars.xml \
       /etc/freeswitch/sip_profiles/external.xml \
@@ -96,7 +98,7 @@ RUN rm /etc/freeswitch/autoload_configs/modules.conf.xml \
       /etc/freeswitch/sip_profiles/internal.xml \
       /etc/freeswitch/sip_profiles/internal-ipv6.xml
 COPY conf/modules.conf.xml conf/switch.conf.xml conf/verto.conf.xml \
-  conf/event_socket.conf.xml conf/acl.conf.xml \
+  conf/event_socket.conf.xml conf/acl.conf.xml conf/syslog.conf.xml \
   /etc/freeswitch/autoload_configs/
 COPY conf/vars.xml /etc/freeswitch/
 COPY conf/external.xml conf/external-ipv6.xml /etc/freeswitch/sip_profiles/
