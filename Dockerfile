@@ -94,6 +94,7 @@ RUN rm /etc/freeswitch/autoload_configs/modules.conf.xml \
       /etc/freeswitch/sip_profiles/internal.xml \
       /etc/freeswitch/sip_profiles/internal-ipv6.xml
 COPY conf/modules.conf.xml conf/switch.conf.xml conf/verto.conf.xml \
+  conf/event_socket.conf.xml \
   /etc/freeswitch/autoload_configs/
 COPY conf/vars.xml /etc/freeswitch/
 COPY conf/external.xml conf/external-ipv6.xml /etc/freeswitch/sip_profiles/
