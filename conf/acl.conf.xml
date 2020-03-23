@@ -10,8 +10,8 @@
     -->
 
     <list name="lan" default="allow">
-      <node type="allow" cidr="172.17.0.1/16" />
-      <node type="allow" cidr="fe80::42:faff:feb2:b76c/64" />
+      <node type="allow" cidr="172.17.0.0/16" />
+      <!-- <node type="allow" cidr="fe80::42:faff:feb2:b76c/64" /> -->
     </list>
 
     <!--

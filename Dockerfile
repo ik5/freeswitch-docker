@@ -49,6 +49,7 @@ RUN  wget -O - https://files.freeswitch.org/repo/deb/debian-release/fsstretch-ar
 RUN apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y gosu certbot \
       && DEBIAN_FRONTEND=noninteractive \
       apt-get install -y \
+      sqlite3 \
       freeswitch-meta-bare freeswitch-conf-vanilla \
       freeswitch-meta-codecs \
       freeswitch-mod-python freeswitch-mod-v8 \
@@ -103,8 +104,8 @@ COPY conf/modules.conf.xml conf/switch.conf.xml conf/verto.conf.xml \
   conf/logfile.conf.xml \
   /etc/freeswitch/autoload_configs/
 COPY conf/vars.xml /etc/freeswitch/
-COPY conf/external.xml conf/external-ipv6.xml /etc/freeswitch/sip_profiles/
-COPY conf/internal.xml conf/internal-ipv6.xml /etc/freeswitch/sip_profiles/
+# COPY conf/external.xml conf/external-ipv6.xml /etc/freeswitch/sip_profiles/
+# COPY conf/internal.xml conf/internal-ipv6.xml /etc/freeswitch/sip_profiles/
 
 ONBUILD COPY webrtc/dialplan/*xml /etc/freeswitch/dialplan/
 ONBUILD COPY webrtc/scripts/* /home/share/scripts

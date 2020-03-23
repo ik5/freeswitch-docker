@@ -23,9 +23,6 @@ clean-container:
 clean-image:
 	@echo "deleting image $(TAG)"
 	@docker image rm -f "$(TAG)" 2>/dev/null && echo "✓" || echo "✘"
-	@sleep 1
-	@echo "deleting bad images"
-	@docker image rm $(shell docker image ls -a | grep none | tr -s ' ' | cut -d ' ' -f 3) && echo "✓" || echo "✘"
 
 clean-all: clean-container clean-image
 	@echo "done"
@@ -40,4 +37,4 @@ bash:
 	docker exec -i -t $(NAME) /bin/bash
 
 fs_cli:
-	docker exec -i -t $(NAME) /usr/bin/fs_cli -l 9999 -d 7 -R -U -i --host=172.17.0.2 --password=ClueCon
+	docker exec -i -t $(NAME) /usr/bin/fs_cli -l 9999 -d 7 -R -U -i --host=127.0.0.1 --password=ClueCon
