@@ -1,0 +1,15 @@
+<configuration name="event_socket.conf" description="Socket Client">
+  <settings>
+    <!-- Allow socket connections from any host -->
+    <!-- :: is the IPv6 version of 0.0.0.0 in IPv4 -->
+    <param name="listen-ip" value="::"/>
+    <param name="listen-port" value="8021"/>
+    <param name="password" value="ClueCon"/>
+
+    <param name="apply-inbound-acl" value="172.17.0.1/16" />
+    <param name="apply-inbound-acl" value="fe80::42:faff:feb2:b76c/64" />
+    <param name="apply-inbound-acl" value="loopback.auto" />
+
+    <param name="stop-on-bind-error" value="true" />
+  </settings>
+</configuration>
