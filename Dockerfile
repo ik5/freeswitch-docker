@@ -106,6 +106,7 @@ COPY conf/modules.conf.xml conf/switch.conf.xml conf/verto.conf.xml \
 COPY conf/vars.xml /etc/freeswitch/
 # COPY conf/external.xml conf/external-ipv6.xml /etc/freeswitch/sip_profiles/
 # COPY conf/internal.xml conf/internal-ipv6.xml /etc/freeswitch/sip_profiles/
+COPY conf/fs_cli.conf /etc/fs_cli.conf
 
 ONBUILD COPY webrtc/dialplan/*xml /etc/freeswitch/dialplan/
 ONBUILD COPY webrtc/scripts/* /home/share/scripts
