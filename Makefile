@@ -37,4 +37,5 @@ bash:
 	docker exec -i -t $(NAME) /bin/bash
 
 fs_cli:
-	docker exec -i -t $(NAME) /usr/bin/fs_cli -l 9999 -d 7 -R -U -i --host=127.0.0.1 --password=ClueCon
+	docker exec -i -t $(NAME) /usr/bin/fs_cli -l 9999 -d 7 -R -U -i
+
