@@ -50,6 +50,7 @@ RUN apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y gosu cer
       && DEBIAN_FRONTEND=noninteractive \
       apt-get install -y \
       sqlite3 \
+      python python-dev \
       freeswitch-meta-bare freeswitch-conf-vanilla \
       freeswitch-meta-codecs \
       freeswitch-mod-python freeswitch-mod-v8 \
