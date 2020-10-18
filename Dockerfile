@@ -154,4 +154,4 @@ WORKDIR /home/share
 ENTRYPOINT ["/docker-entrypoint.sh"]
 CMD ["freeswitch"]
 
-# vim:set ft=dockesfile:
+# vim:set ft=dockerfile
